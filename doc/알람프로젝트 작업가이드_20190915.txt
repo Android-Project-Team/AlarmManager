@@ -1,0 +1,61 @@
+디렉터리 구조
+	alarm_manager
+		- user_data
+		- music
+		- image
+
+클래스 & 메서드 정리
+
+
+AlramManager (싱글턴 패턴으로 구현)
+	Alarm
+		ID(int) -> 고유 숫자값
+		Enable(boolean) -> 활성화 상태
+		AlarmDate(String)
+		AlarmTime(String)
+		Duty(String) -> 간격 : 반복 :알림 예시 ) "3 : 3 : 3,7" 
+		DayCircle(String) -> 0,1,0,1,0,1,0  // 일,월,화,수,목,금,토 0 : 비활성 1: 활성
+		AlarmNote(String) 알람내용
+		FileName(String) 파일제목 
+		VibeLevle(int) 진동세기
+		AlarmCount(int) 알람울린횟수
+	
+	MUSIC_DEFAULT_1, 기본알람음 1 ~ 3
+	SETTING_ADD 추가 정규식 타입 : 알람내용 : 시간 : 요일, 
+	SETTING_DELETE 삭제 규식 타입 : 알람내용 , de : "문자열"
+
+
+메서드 목록
+
+	GetAlarmList() :  return List<Alarm>, 알람목록을 가져온다
+	GetAlarm(Alarm.ID), return Alarm 지정된 알람을 가져온다
+	AddAlarm(Alarm), return Boolean, 알람을 추가한다
+	SetAlarm(Alarm), return Boolean, 알람을 셋팅한다(알람 속성변경)
+	SetAlarmEnable(Boolean, Alarm.ID) : return Boolean, 알람활성화 설정
+	DeleteAlarm(List<Alarm.ID>) : return Boolean, 알람삭제
+	
+	DeleteAlarm(String) : return Boolean, 정규식으로 알람삭제
+	AddAlarm(String), return Boolean, 알람을 정규식으로 추가
+
+
+코딩규칙
+	카멜식 코딩
+	-> 변수를 선언할때 명사위주로 첫번째 단어시작은 소문자로
+	strArlarmNote
+	
+	-> 메서드를 선언할 때, 시작문자 대문자, 동사로 시작 가져오기(Get), 설정하기(Set), 저장하기(Save)
+	GetUserData(), SetUserData(), SaveUserData()
+	
+	-> 클래스도 대문자로 시작, 명사로
+	DataManager, AlaramManager
+
+
+
+
+
+
+
+
+				
+
+
