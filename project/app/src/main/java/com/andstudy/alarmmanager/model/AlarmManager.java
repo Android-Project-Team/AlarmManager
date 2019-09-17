@@ -29,6 +29,7 @@ public class AlarmManager {
     //생성자
     public AlarmManager(){
         //TODO make init
+        listAlarm = new ArrayList<>();
     }
     //--------------------------------------------------------------------------------------------//
     //
