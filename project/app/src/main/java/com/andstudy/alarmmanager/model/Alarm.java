@@ -26,9 +26,6 @@ public class Alarm {
     private int vibeLevel = 50; //range 0 ~ 100, 진동세기, 10 단계로 나눌 것
     private int alarmCount = 0; // 알람울린횟수
 
-
-
-
     //--------------------------------------------------------------------------------------------//
     //
     //--------------------------------------------------------------------------------------------//
@@ -39,22 +36,38 @@ public class Alarm {
         /* HJ SJ START  */
         enable = true;
         /* HJ SJ END */
-        alarmDate = "19990101";
+        //alarmDate = "19990101";
+        alarmDate = "00000000";
         alarmTime = "000000";
         /* HJ SJ START  */
         //duty = "3:3:3,7";
-        alarmCycle = 1;
-        alarmMaxCount = 1;
-        alarmNotice = "0";
+        alarmCycle = 3; // 3분 주기
+        alarmMaxCount = 3; // 3번 반복
+        alarmNotice = "0"; // 알림X
         /* HJ SJ END */
         dayCircle = "0000000";
         alarmNote = "ALARM CONTENTS";
-        fileName = "MUSIC NAME";
+        fileName = "ALARM1";
         /* HJ SJ STRAT */
         vibeLevel = 50;
         /* HJ SJ END */
         alarmCount = 0;
     }
+
+    public Alarm(String alarmNote, String alarmTime, String dayCircle) {
+        this.enable = true;
+        this.alarmDate = "00000000";
+        this.alarmTime = alarmTime;
+        this.alarmCycle = 3; // 3분 주기
+        this.alarmMaxCount = 3; // 3번 반복
+        this.alarmNotice = "0"; // 알림X
+        this.dayCircle = dayCircle;
+        this.alarmNote = alarmNote;
+        this.fileName = "ALARM1";
+        this.vibeLevel = 50;
+        this.alarmCount = 0;
+    }
+
     //--------------------------------------------------------------------------------------------//
     //
     //--------------------------------------------------------------------------------------------//
@@ -168,6 +181,27 @@ public class Alarm {
 
     public void setAlarmCount(int alarmCount) {
         this.alarmCount = alarmCount;
+    }
+
+    public boolean checkFormatAlarmNote(String alarmNote) {
+        if(alarmNote.length() > 80) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkFormatAlarmTime(String alarmTime) {
+        if(false) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkFormatDayCircle(String dayCircle) {
+        if(false) {
+            return false;
+        }
+        return true;
     }
 //--------------------------------------------------------------------------------------------//
     //

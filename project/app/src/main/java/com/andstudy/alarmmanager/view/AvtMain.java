@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.andstudy.alarmmanager.R;
 import com.andstudy.alarmmanager.model.Alarm;
+import com.andstudy.alarmmanager.model.AlarmManager;
 import com.andstudy.alarmmanager.util.SqlLiteUtil;
 
 import java.util.List;
@@ -57,7 +58,8 @@ public class AvtMain extends AppCompatActivity {
     // insertData
     private void insert(Alarm alarm) {
         // insert
-        SqlLiteUtil.getInstance().insert(alarm);
+        AlarmManager.getInstance().AddAlarm(alarm);
+        //SqlLiteUtil.getInstance().insert(alarm);
    //     mTextView.append("INSERT : insert good \n");
     }
 
