@@ -1,7 +1,11 @@
 package com.andstudy.alarmmanager.view;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -14,6 +18,7 @@ import com.andstudy.alarmmanager.model.AlarmManager;
 import java.util.ArrayList;
 
 public class AvtMain extends AppCompatActivity {
+    Context mainContext=this;
     ArrayList<Alarm> alarmList = new ArrayList<Alarm>();
     ListView listview;//알람 list
     TextView listnulltext;//list가 하나도 없을때 표시되는 textview
@@ -52,10 +57,29 @@ public class AvtMain extends AppCompatActivity {
 
             ListAdapter adapter = new ListAdapter(alarmList) ;
             listview.setAdapter(adapter);
-
-
-
         }
+    }
+    /*
+    * 오른쪽 상단에 메뉴 설정
+    * res->menu 폴더생성
+    * menuitem.xml 만들고 menuitem 생성
+    * menuitem에 title에 바로 문자열을 입력을 하니 warning가 출력되어서
+    * values->strings.xml 에 추가 후 이용
+    * */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menuitem,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    /*
+    * 옵션메뉴 클릭 이벤트
+    * */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==R.id.settingButton){
+            startActivity(new Intent(this,AvtSetting.class));
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
