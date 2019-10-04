@@ -6,51 +6,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <TextView
+        android:id="@+id/noteid"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="30dp">
-
-        <TextView
-            android:id="@+id/noteid"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="TextView"
-            android:textColor="#9F7DE5"
-            android:textSize="30dp" />
-
-    </LinearLayout>
+        android:layout_height="50dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text="TextView"
+        android:textColor="#9F7DE5"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/daycircleid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/daycircleid"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginTop="8dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:text="TextView"
         android:textColor="#9F7DE5"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/noteid" />
 
     <Switch
         android:id="@+id/enableid"
         android:layout_width="100dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:thumb="@drawable/switch_thumb_selector"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:track="@drawable/switch_track_selector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.972"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout2"
-
-        android:track="@drawable/switch_track_selector"
-        android:thumb="@drawable/switch_thumb_selector"
-/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

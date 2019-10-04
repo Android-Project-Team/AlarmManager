@@ -4,9 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -14,14 +18,27 @@ import com.andstudy.alarmmanager.R;
 import com.andstudy.alarmmanager.adapter.ListAdapter;
 import com.andstudy.alarmmanager.model.Alarm;
 import com.andstudy.alarmmanager.model.AlarmManager;
+import com.andstudy.alarmmanager.util.MyDebug;
 
 import java.util.ArrayList;
 
 public class AvtMain extends AppCompatActivity {
-    Context mainContext=this;
     ArrayList<Alarm> alarmList = new ArrayList<Alarm>();
     ListView listview;//알람 list
     TextView listnulltext;//list가 하나도 없을때 표시되는 textview
+    Button plusButton;
+    View.OnClickListener viewListener=new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                //알람추가 이벤트
+                case R.id.addbtn:
+                  startActivity(new Intent(getApplicationContext(),AvtSetting.class));
+                    break;
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +46,8 @@ public class AvtMain extends AppCompatActivity {
 
         listview=(ListView)findViewById(R.id.listview);
         listnulltext=(TextView) findViewById(R.id.listnulltext);
+        plusButton=(Button)findViewById(R.id.addbtn);
+        plusButton.setOnClickListener(viewListener);
         //객체 생성
         AlarmManager alarmManager=AlarmManager.getInstance();
         //alarmlist = alarmManager.GetAlarmList();
@@ -57,6 +76,18 @@ public class AvtMain extends AppCompatActivity {
 
             ListAdapter adapter = new ListAdapter(alarmList) ;
             listview.setAdapter(adapter);
+            Log.d("test","test");
+            //리스트 뷰 클릭 이벤트
+            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Log.d("test","test");
+                }
+            });
+
+
+
+
         }
     }
     /*
@@ -82,4 +113,5 @@ public class AvtMain extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
