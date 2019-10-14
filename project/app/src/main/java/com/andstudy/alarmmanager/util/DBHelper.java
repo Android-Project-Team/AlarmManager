@@ -12,14 +12,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
- /*       String sqlStudent = "create table if not exists "+ Defines.ALARM +"(" +
-                "_id integer primary key autoincrement," +
-                "id text, " +
-                "password text, " +
-                "cellphone text);";*/
-        // TABLE DROP
-
-        //
         String sqlStudent = "create table if not exists "+ Defines.ALARM +"(" +
                 "_id integer primary key autoincrement," +
                 "enable text, " +
@@ -42,6 +34,4 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(sqlStudent);
         onCreate(db);
     }
-
-
 }

@@ -9,17 +9,12 @@ public class Alarm {
     //--------------------------------------------------------------------------------------------//
     //Parameters, don't reference parameters directly, use setter and getter
     private int id = -1;
-    /* HJ SJ START  */
     private boolean enable = true; // 1 : true, 0 : false
-    /* HJ SJ END */
     private String alarmDate = ""; //YYYYMMDD
     private String alarmTime = ""; //hhmmss
-    /* HJ SJ START  */
-    //private String duty = "";  //간격 : 반복 : 알림 ex) "3 : 3 : 3,7"
     private int alarmCycle = 0; // 반복 주기 (분: 1~60)
     private int alarmMaxCount = 0; // 반복 횟수 (회 : 0~99)
     private String alarmNotice = ""; // 알림(0 ~ xx, xx, xx)
-    /* HJ SJ END */
     private String dayCircle = ""; //0,1,0,1,0,1,0 일,월,화,수,목,금,토  0 : 비활성 1: 활성
     private String alarmNote = ""; // 알람내용
     private String fileName = ""; // 파일제목, 알람음악
@@ -32,25 +27,16 @@ public class Alarm {
     public Alarm()
     {
         //TODO make init, default setting
-        //id = 1;
-        /* HJ SJ START  */
         enable = true;
-        /* HJ SJ END */
-        //alarmDate = "19990101";
         alarmDate = "00000000";
         alarmTime = "000000";
-        /* HJ SJ START  */
-        //duty = "3:3:3,7";
         alarmCycle = 3; // 3분 주기
         alarmMaxCount = 3; // 3번 반복
         alarmNotice = "0"; // 알림X
-        /* HJ SJ END */
         dayCircle = "0000000";
         alarmNote = "ALARM CONTENTS";
         fileName = "ALARM1";
-        /* HJ SJ STRAT */
         vibeLevel = 50;
-        /* HJ SJ END */
         alarmCount = 0;
     }
 
@@ -76,11 +62,9 @@ public class Alarm {
         return this.id;
     }
 
-    /* HJ SJ START */
     public boolean getEnable() {
         return enable;
     }
-    /* HJ SJ END */
 
     public String getAlarmDate() {
         return alarmDate;
@@ -89,11 +73,7 @@ public class Alarm {
     public String getAlarmTime() {
         return alarmTime;
     }
-    /* HJ SJ START */
-    /*public String getDuty() {
-        return duty;
-    }
-    */
+
     public int getAlarmCycle() {
         return alarmCycle;
     }
@@ -105,7 +85,7 @@ public class Alarm {
     public String getAlarmNotice() {
         return alarmNotice;
     }
-    /* HJ SJ END */
+
     public String getDayCircle() {
         return dayCircle;
     }
@@ -131,11 +111,9 @@ public class Alarm {
         this.id = id;
     }
 
-    /* HJ SJ START */
     public void setEnable(boolean enable) {
         this.enable = enable;
 }
-    /* HJ SJ END */
 
     public void setAlarmDate(String alarmDate) {
         this.alarmDate = alarmDate;
@@ -144,11 +122,6 @@ public class Alarm {
     public void setAlarmTime(String alarmTime) {
         this.alarmTime = alarmTime;
     }
-
-    /* HJ SJ START  */
-    /*  public void setDuty(String duty) {
-        this.duty = duty;
-    }*/
 
     public void setAlarmCycle(int alarmCycle) {
         this.alarmCycle = alarmCycle;
@@ -161,7 +134,6 @@ public class Alarm {
     public void setAlarmNotice(String alarmNotice) {
         this.alarmNotice = alarmNotice;
     }
-    /* HJ SJ END */
 
     public void setDayCircle(String dayCircle) {
         this.dayCircle = dayCircle;
@@ -183,26 +155,6 @@ public class Alarm {
         this.alarmCount = alarmCount;
     }
 
-    public boolean checkFormatAlarmNote(String alarmNote) {
-        if(alarmNote.length() > 80) {
-            return false;
-        }
-        return true;
-    }
-
-    public boolean checkFormatAlarmTime(String alarmTime) {
-        if(false) {
-            return false;
-        }
-        return true;
-    }
-
-    public boolean checkFormatDayCircle(String dayCircle) {
-        if(false) {
-            return false;
-        }
-        return true;
-    }
 //--------------------------------------------------------------------------------------------//
     //
     //--------------------------------------------------------------------------------------------//

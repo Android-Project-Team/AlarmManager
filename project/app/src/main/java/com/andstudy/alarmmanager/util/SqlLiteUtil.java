@@ -28,9 +28,9 @@ public class SqlLiteUtil {
         this.tableName = tableName;
 
         DBHelper helper = new DBHelper(
-                context,  // 현재 화면의 제어권자
-                Defines.DATABASE_NAME,  // 데이터베이스 이름
-                null, // 커서팩토리 - null 이면 표준 커서가 사용됨
+                context,
+                Defines.DATABASE_NAME,
+                null,
                 5);
 
         try {
@@ -73,18 +73,29 @@ public class SqlLiteUtil {
         }
     }
 
-    public void delete(int number) {
+    public void delete(int id) {
         int result = 0;
         try {
-            result  = sqLiteDatabase.delete(tableName, "_id=?", new String[]{String.valueOf(number)});
-            MyDebug.log(tableName +" :"+ result + " row delete SUCCESS , id = " + number );
+            result  = sqLiteDatabase.delete(tableName, "_id=?", new String[]{String.valueOf(id)});
+            MyDebug.log(tableName +" :"+ result + " row delete SUCCESS , id = " + id);
         }catch(SQLiteException e) {
             e.printStackTrace();
-            MyDebug.log(tableName +" : " + result + "row delete FAILURE. id = " + number);
+            MyDebug.log(tableName +" : " + result + "row delete FAILURE. id = " + id);
         }
     }
 
-    public List<Alarm> viewAlarmList() { // alarm List 보기.
+    public void delete(String alarmNote) {
+        int result = 0;
+        try {
+            result  = sqLiteDatabase.delete(tableName, "alarmNote=?", new String[]{String.valueOf(alarmNote)});
+            MyDebug.log(tableName +" :"+ result + " row delete SUCCESS , alarmNote = " + alarmNote);
+        }catch(SQLiteException e) {
+            e.printStackTrace();
+            MyDebug.log(tableName +" : " + result + "row delete FAILURE. alarmNote = " + alarmNote);
+        }
+    }
+
+    public List<Alarm> viewAlarmList() {
         Cursor c = sqLiteDatabase.query(tableName, null, null, null, null, null, null);
         // sqlLiteDatabase = getReadableDatabase
         List<Alarm> container = new ArrayList<>();
@@ -111,9 +122,29 @@ public class SqlLiteUtil {
         } catch (SQLiteException e) {
             e.printStackTrace();
             MyDebug.log(tableName + " : SELECT FAILURE" );
-
         }
-
         return container;
     }
+
+    public boolean selectEnable (int id) {
+        Cursor c = sqLiteDatabase.query(tableName, null, null, null, null, null, null);
+        // sqlLiteDatabase = getReadableDatabase
+        Alarm tAlarm = new Alarm();
+        tAlarm.setEnable((c.getInt(c.getColumnIndex("enable")) == 1));
+        MyDebug.log("변경전 : " + tAlarm.getEnable());
+        return tAlarm.getEnable();
+    }
+
+    public void updateEnable(int id) {
+        ContentValues values = new ContentValues();
+        boolean enable = (selectEnable(id)?false:true);
+        MyDebug.log("변경후: " + enable);
+        values.put("enable", enable);
+        int result = sqLiteDatabase.update(tableName, // tableName
+                values,    // 뭐라고 변경할지 ContentValues 설정
+                "id=" +id, // 바꿀 항목을 찾을 조건절
+                null);// 바꿀 항목으로 찾을 값 String 배열
+        MyDebug.log(tableName + " updateEnable" + result + "번째 row update 성공했음");
+    }
+
 }

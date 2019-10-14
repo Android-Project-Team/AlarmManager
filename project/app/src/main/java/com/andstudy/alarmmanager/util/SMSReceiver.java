@@ -40,7 +40,8 @@ public class SMSReceiver extends BroadcastReceiver {
             MyDebug.log(TAG, "received date: "+receivedDate);
 
             // 해당 내용을 모두 합쳐서 액티비티로 보낸다.
-            sendToActivity(context, sender+'\n'+contents+'\n'+format.format(receivedDate));
+            //sendToActivity(context, sender+'\n'+contents+'\n'+format.format(receivedDate));
+            sendToActivity(context, contents);
         }
     }
 
