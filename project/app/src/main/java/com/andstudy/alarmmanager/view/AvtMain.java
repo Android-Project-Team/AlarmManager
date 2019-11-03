@@ -33,7 +33,9 @@ public class AvtMain extends AppCompatActivity {
             switch (v.getId()){
                 //알람추가 이벤트
                 case R.id.addbtn:
-                  startActivity(new Intent(getApplicationContext(),AvtSetting.class));
+                    Intent intent = new Intent(getApplicationContext(),AvtSetting.class);
+                    intent.putExtra("alarmId", -1);
+                    startActivity(intent);
                     break;
             }
         }
@@ -81,13 +83,12 @@ public class AvtMain extends AppCompatActivity {
             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Log.d("test","test");
+                    //Log.d("test","test");
+                    Intent intent = new Intent(getApplicationContext(),AvtSetting.class);
+                    intent.putExtra("alarmId", alarmList.get(position).getId());
+                    startActivity(intent);
                 }
             });
-
-
-
-
         }
     }
     /*
