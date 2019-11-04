@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/noteid"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text="TextView"
+        android:textColor="#9F7DE5"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/daycircleid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/daycircleid"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text="TextView"
+        android:textColor="#9F7DE5"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noteid" />
+
+    <Switch
+        android:id="@+id/enableid"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:thumb="@drawable/switch_thumb_selector"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:track="@drawable/switch_track_selector"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.972"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
