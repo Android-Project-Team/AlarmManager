@@ -11,14 +11,15 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Dialog.dateTimeDialog">
         </activity>
-        <activity android:name=".view.AvtAddAlarm">
+        <activity android:name=".view.AvtSetting">
+        </activity>
+        <activity android:name=".view.ActSettingBell">
+        </activity>
+        <activity android:name=".view.AvtMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".view.AvtSetting" />
-        <activity android:name=".view.AvtMain">
         </activity>
     </application>
 
