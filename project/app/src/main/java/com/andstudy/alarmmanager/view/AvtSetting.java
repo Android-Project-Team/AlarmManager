@@ -29,6 +29,8 @@ import butterknife.OnClick;
  */
 public class AvtSetting extends AppCompatActivity {
 
+    private int REQUEST_BELL = 0;
+    private int REQUEST_CYCLE = 1;
     @BindView(R.id.txtDate)
     TextView txtDate;
     @BindView(R.id.linearLayout)
@@ -87,15 +89,19 @@ public class AvtSetting extends AppCompatActivity {
         Intent intent = getIntent();
         try{
             int alarmId = intent.getExtras().getInt("alarmId");
-            if(alarmId >= 0) {
+            MyDebug.log(" alarmId : " + alarmId );
+            //alarm = selectAlarmInfo(alarmId);
+            if (alarmId >= 0) {
                 alarm = AlarmManager.getInstance().GetAlarm(alarmId);
-                //test data
-                alarm = new Alarm();
-                alarm.setAlarmDate("20191103");
             }
-            initAlarmData(alarm);
-            txtDate.setText("20191111");
+            else {
+                initAlarmData(alarm);
+            }
+            setAlarmToView();
+            //txtDate.setText("20191111");
+
         }
+
         catch (Exception e)
         {
             MyDebug.log(e.getMessage());
@@ -125,6 +131,16 @@ public class AvtSetting extends AppCompatActivity {
     //--------------------------------------------------------------------------------------------//
     @OnClick(R.id.linearLayout3)
     public void setRecycleButton() {
+        MyDebug.log("RecycleButton1");
+        Intent intent = new Intent(getApplicationContext(),ActSettingCycle.class);
+        MyDebug.log("RecycleButton2");
+        intent.putExtra("cycle", "null");
+        MyDebug.log("RecycleButton3");
+        intent.putExtra("count", "null");
+        MyDebug.log("RecycleButton4");
+        intent.putExtra("notice", "null");
+        MyDebug.log("RecycleButton5");
+        startActivityForResult(intent, REQUEST_CYCLE);
     }
 
     //--------------------------------------------------------------------------------------------//
@@ -138,7 +154,7 @@ public class AvtSetting extends AppCompatActivity {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 String content = contentDialog.getContent();
-                //contentText.setText(content);
+                txtNote.setText(content);
             }
         });
     }
@@ -151,7 +167,7 @@ public class AvtSetting extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(),ActSettingBell.class);
         intent.putExtra("vibe", "null");
         intent.putExtra("bell", "null");
-        startActivityForResult(intent, 0);
+        startActivityForResult(intent, REQUEST_BELL);
     }
 
     //--------------------------------------------------------------------------------------------//
@@ -173,7 +189,8 @@ public class AvtSetting extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         Alarm alarm = new Alarm();
-        alarm.setAlarmNote("ok?");
+        alarm = getAlarm();
+        //alarm.setAlarmNote("ok?");
         insert(alarm);
 
         startActivity(intent);
@@ -216,7 +233,6 @@ public class AvtSetting extends AppCompatActivity {
         if(alarm == null){
             alarm = makeNewAlarmData();
         }
-        setAlarmToView(alarm);
     }
 
     //--------------------------------------------------------------------------------------------//
@@ -228,11 +244,10 @@ public class AvtSetting extends AppCompatActivity {
         //TODO Set up new alarm data
         return newAlarm;
     }
-
     //--------------------------------------------------------------------------------------------//
     // TEST
     //--------------------------------------------------------------------------------------------//
-    private void setAlarmToView(Alarm alarm){
+    private void setAlarmToView(){
         txtDate.setText(alarm.getAlarmDate());
         txtTime.setText(alarm.getAlarmTime());
         txtNote.setText(alarm.getAlarmNote());
@@ -247,7 +262,7 @@ public class AvtSetting extends AppCompatActivity {
     }
 
     //--------------------------------------------------------------------------------------------//
-    // setting된 Alarm 반환
+    // setting된 Alarm 반환 - 이부분은 다시 고쳐야됌.
     //--------------------------------------------------------------------------------------------//
     private Alarm getAlarm() {
         Alarm alarm = new Alarm();
@@ -272,10 +287,16 @@ public class AvtSetting extends AppCompatActivity {
     //--------------------------------------------------------------------------------------------//
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            //alarm.setVibeLevel(data.getIntExtra("vibe", 0));
-            //alarm.setFileName(data.getStringExtra("bell"));
-            txtContent.setText(data.getStringExtra("bell") + "," + data.getIntExtra("vibe", 0));
+        if ( requestCode == REQUEST_BELL) {
+            if (resultCode == RESULT_OK) {
+                //alarm.setVibeLevel(data.getIntExtra("vibe", 0));
+                //alarm.setFileName(data.getStringExtra("bell"));
+                txtContent.setText(data.getStringExtra("bell") + "," + data.getIntExtra("vibe", 0));
+            }
+        } else if ( requestCode == REQUEST_CYCLE) {
+            if (resultCode == RESULT_OK) {
+                txtCycle.setText(data.getIntExtra("cycle", 0) +  "," + data.getIntExtra("count", 0) + "," + data.getStringExtra("notice") );
+            }
         }
     }
 }

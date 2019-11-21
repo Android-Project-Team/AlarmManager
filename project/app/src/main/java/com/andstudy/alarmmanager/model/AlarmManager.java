@@ -5,6 +5,7 @@ package com.andstudy.alarmmanager.model;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import com.andstudy.alarmmanager.util.MyDebug;
 import com.andstudy.alarmmanager.util.SqlLiteUtil;
 
 import java.util.ArrayList;
@@ -60,7 +61,14 @@ public class AlarmManager {
     //--------------------------------------------------------------------------------------------//
     public Alarm GetAlarm(int alarmId) {
         //TODO make function
-        return listAlarm.get(alarmId);
+        MyDebug.log ("getalarm : " + alarmId ) ;
+        for ( Alarm a : listAlarm) {
+            MyDebug.log ("alarmId, getId : " + alarmId + "," + a.getId()) ;
+            if ( alarmId == a.getId()) {
+                return a;
+            }
+        }
+        return null;
     }
 
     //--------------------------------------------------------------------------------------------//
@@ -72,11 +80,20 @@ public class AlarmManager {
         SqlLiteUtil.getInstance().insert(alarm);
         return true;
     }
+    //--------------------------------------------------------------------------------------------//
+    //
+    //--------------------------------------------------------------------------------------------//
+    public boolean SetAlarmList() {
+        //TODO make function
+        listAlarm = SqlLiteUtil.getInstance().viewAlarmList();
+        if(listAlarm == null) return false;
+        return true;
+    }
 
     //--------------------------------------------------------------------------------------------//
     //
     //--------------------------------------------------------------------------------------------//
-    public boolean SetAlram(Alarm alarm) { // alarm Setting
+    public boolean SetAlarm(Alarm alarm) { // alarm Setting
         if (alarm == null) return false;
         return true;
     }
@@ -84,7 +101,7 @@ public class AlarmManager {
     //--------------------------------------------------------------------------------------------//
     //
     //--------------------------------------------------------------------------------------------//
-    public boolean SetAlramEnable(int alarmId) {
+    public boolean SetAlarmEnable(int alarmId) {
         SqlLiteUtil.getInstance().updateEnable(alarmId); // need update function
         return true;
     }

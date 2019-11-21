@@ -95,10 +95,11 @@ public class SqlLiteUtil {
         }
     }
 
-    public List<Alarm> viewAlarmList() {
+    //public List<Alarm> viewAlarmList() {
+    public ArrayList<Alarm> viewAlarmList() {
         Cursor c = sqLiteDatabase.query(tableName, null, null, null, null, null, null);
         // sqlLiteDatabase = getReadableDatabase
-        List<Alarm> container = new ArrayList<>();
+        ArrayList<Alarm> container = new ArrayList<>();
         try {
             if (c!= null) {
                 while (c.moveToNext()) {
@@ -125,9 +126,32 @@ public class SqlLiteUtil {
         }
         return container;
     }
-
+ /*
+    public Alarm selectAlarm(int id) {
+        Cursor c = sqLiteDatabase.query(tableName, null, "_id=?", new String[]{String.valueOf(id)}, null, null, null);
+        // sqlLiteDatabase = getReadableDatabase
+        Alarm tAlarm = new Alarm();
+        if(c != null ) {
+            c.moveToNext();
+            tAlarm.setId(c.getInt(c.getColumnIndex("_id")));
+            tAlarm.setEnable((c.getInt(c.getColumnIndex("enable")) == 1));
+            tAlarm.setAlarmDate(c.getString(c.getColumnIndex("alarmDate")));
+            tAlarm.setAlarmTime(c.getString(c.getColumnIndex("alarmTime")));
+            tAlarm.setAlarmCycle(c.getInt(c.getColumnIndex("alarmCycle")));
+            tAlarm.setAlarmMaxCount(c.getInt(c.getColumnIndex("alarmMaxCount")));
+            tAlarm.setAlarmNotice(c.getString(c.getColumnIndex("alarmNotice")));
+            tAlarm.setDayCircle(c.getString(c.getColumnIndex("dayCircle")));
+            tAlarm.setAlarmNote(c.getString(c.getColumnIndex("alarmNote")));
+            tAlarm.setFileName(c.getString(c.getColumnIndex("fileName")));
+            tAlarm.setVibeLevel(c.getInt(c.getColumnIndex("vibeLevel")));
+            tAlarm.setAlarmCount(c.getInt(c.getColumnIndex("alarmCount")));
+        }
+        MyDebug.log("변경전 : " + tAlarm.getId());
+        return tAlarm;
+    }
+*/
     public boolean selectEnable (int id) {
-        Cursor c = sqLiteDatabase.query(tableName, null, null, null, null, null, null);
+        Cursor c = sqLiteDatabase.query(tableName, null, "_id=?", new String[]{String.valueOf(id)}, null, null, null);
         // sqlLiteDatabase = getReadableDatabase
         Alarm tAlarm = new Alarm();
         tAlarm.setEnable((c.getInt(c.getColumnIndex("enable")) == 1));

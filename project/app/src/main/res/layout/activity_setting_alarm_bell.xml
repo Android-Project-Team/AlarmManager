@@ -87,7 +87,8 @@
         android:layout_marginTop="8dp"
         android:background="#FDFDFE"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:layout_editor_absoluteX="0dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -101,11 +102,27 @@
             android:id="@+id/vibeSeekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:progress="50"
-            android:max="100"
+            android:max="10"
+            android:progress="5" />
+
+        <TextView
+            android:id="@+id/seekBarText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vibeSeekBar"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="29dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginRight="29dp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:text=""
             />
 
+
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"

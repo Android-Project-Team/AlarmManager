@@ -1,93 +1,142 @@
 package com.andstudy.alarmmanager.view;
 
-import android.support.annotation.Nullable;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.andstudy.alarmmanager.R;
+import com.andstudy.alarmmanager.adapter.ListAdapter;
 import com.andstudy.alarmmanager.model.Alarm;
 import com.andstudy.alarmmanager.model.AlarmManager;
+import com.andstudy.alarmmanager.util.MyDebug;
 import com.andstudy.alarmmanager.util.SqlLiteUtil;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class AvtMain extends AppCompatActivity {
-    private List<Alarm> alarms;
-    private TextView mTextView;
-    private Alarm alarm_insert_test;
+    ArrayList<Alarm> alarmList = new ArrayList<Alarm>();
+    ListView listview;//알람 list
+    TextView listnulltext;//list가 하나도 없을때 표시되는 textview
+    Button plusButton;
+    View.OnClickListener viewListener=new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                //알람추가 이벤트
+                case R.id.addbtn:
+                    Intent intent = new Intent(getApplicationContext(),AvtSetting.class);
+                    intent.putExtra("alarmId", -1);
+                    startActivity(intent);
+                    break;
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avt_main);
-        mTextView = (TextView) findViewById(R.id.testView);
-        setInitView();
+        initDatabase();
 
+        listview=(ListView)findViewById(R.id.listview);
+        listnulltext=(TextView) findViewById(R.id.listnulltext);
+        plusButton=(Button)findViewById(R.id.addbtn);
+        plusButton.setOnClickListener(viewListener);
 
-        alarm_insert_test = new Alarm();
+        //객체 생성
+        AlarmManager alarmManager = AlarmManager.getInstance();
 
-/*        String str = "ID : " + alarm_insert_test.getId() + "|" + "\n" +
-                "ENABLE : " + alarm_insert_test.getEnable() + "|" + "\n" +
-                "ALARM DATE : " + alarm_insert_test.getAlarmDate() + "|" + "\n" +
-                "ALARM TIME : " + alarm_insert_test.getAlarmTime() + "|" + "\n" +
-                "ALARM CYCLE : " + alarm_insert_test.getAlarmCycle() + "|" + "\n" +
-                "MAX COUNT : " + alarm_insert_test.getAlarmMaxCount() + "|" + "\n" +
-                "ALARM NOTICE : " + alarm_insert_test.getAlarmNotice() + "|" + "\n" +
-                "DAY CIRCLE : " + alarm_insert_test.getDayCircle() + "|" + "\n" +
-                "ALARM NOTE : " + alarm_insert_test.getAlarmNote() + "|" + "\n" +
-                "FILE NAME : " + alarm_insert_test.getFileName() + "|" + "\n" +
-                "VIBE LEVEL : " + alarm_insert_test.getVibeLevel() + "|" + "\n" +
-                "ALARM COUNT : " + alarm_insert_test.getAlarmCount() + "|" ;
-        mTextView.append("SAMPLE DATA :\n"  + str + "\n");*/
+        //alram list length check
+        if(!alarmManager.SetAlarmList()){
+             MyDebug.log("alarmList IS NULL");
+            listview.setVisibility(View.GONE);
+            listnulltext.setVisibility(View.VISIBLE);
+        }else{
+            MyDebug.log("alarmList IS NOT NULL");
 
-        /* ********  TEST ******** */
-        /* 1 * INSERT TEST * */
-        //insert(alarm_insert_test);
-        //select();
-        /* 2 * DELETE TEST * */
-        //delete(1);
-        select();
-        /* ********  TEST ******** */
+            listview.setVisibility(View.VISIBLE);
+            listnulltext.setVisibility(View.GONE);
 
+            alarmList = alarmManager.GetAlarmList();
+            ListAdapter adapter = new ListAdapter(alarmList) ;
+            listview.setAdapter(adapter);
+            Log.d("test","test");
+            //리스트 뷰 클릭 이벤트
+            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Alarm alarm = new Alarm();
+                    Intent intent = new Intent(getApplicationContext(),AvtSetting.class);
+                    intent.putExtra("alarmId", alarmList.get(position).getId());
+
+                    startActivity(intent);
+                }
+            });
+            listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() { /* 삭제 */
+                @Override
+                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Log.d("test","longClick");
+                    return true;
+                }
+            });
+
+        }
+    }
+    /*
+    * 오른쪽 상단에 메뉴 설정
+    * res->menu 폴더생성
+    * menuitem.xml 만들고 menuitem 생성
+    * menuitem에 title에 바로 문자열을 입력을 하니 warning가 출력되어서
+    * values->strings.xml 에 추가 후 이용
+    * */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menuitem,menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
-    private void setInitView() {
+    /*
+    * 옵션메뉴 클릭 이벤트
+    * */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==R.id.settingButton){
+            startActivity(new Intent(this,AvtSetting.class));
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //--------------------------------------------------------------------------------------------//
+    // DB 초기화
+    //--------------------------------------------------------------------------------------------//
+    private void initDatabase() {
         SqlLiteUtil.getInstance().setInitView(getApplicationContext(), "ALARM");
     }
 
-    // insertData
+    //--------------------------------------------------------------------------------------------//
+    // DB : alarm insert
+    //--------------------------------------------------------------------------------------------//
     private void insert(Alarm alarm) {
         // insert
-        AlarmManager.getInstance().AddAlarm(alarm);
-        //SqlLiteUtil.getInstance().insert(alarm);
-   //     mTextView.append("INSERT : insert good \n");
+        SqlLiteUtil.getInstance().insert(alarm);
+        //     mTextView.append("INSERT : insert good \n");
     }
 
-    // deleteData
+    //--------------------------------------------------------------------------------------------//
+    // DB : alarm delete
+    //--------------------------------------------------------------------------------------------//
     private void delete(int position) {
         SqlLiteUtil.getInstance().delete(position);
         //mTextView.setText("delete good \n");
     }
-
-    private void select() {
-        alarms = SqlLiteUtil.getInstance().viewAlarmList();
-        String str = "";
-        for (Alarm alarm : alarms) {
-            str +=  "\nSELECT RESULT :\n" +
-                    alarm.getId() + "|" +
-                    alarm.getEnable() + "|" +
-                    alarm.getAlarmDate() + "|" +
-                    alarm.getAlarmTime() + "|" +
-                    alarm.getAlarmCycle() + "|" +
-                    alarm.getAlarmMaxCount() + "|" +
-                    alarm.getAlarmNotice() + "|" +
-                    alarm.getDayCircle() + "|" +
-                    alarm.getAlarmNote() + "|" +
-                    alarm.getFileName() + "|" +
-                    alarm.getVibeLevel() + "|" +
-                    alarm.getAlarmCount() + "|" ;
-        }
-        mTextView.setText( str );
-    }
 }
-

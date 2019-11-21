@@ -9,14 +9,15 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:background="#FDFDFE"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="간격"
             android:textColor="#9E7DE4"
             android:textSize="30dp" />
@@ -24,41 +25,51 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="3dp"
-            android:background="#D6D6D6"/>
+            android:background="#D6D6D6" />
+
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <RadioButton
+                android:id="@+id/cycle1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="false"
                 android:text=" 3분"
-                android:textSize="20dp"
-                android:checked="false"/>
+                android:textSize="20dp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="#92CE9C"/>
+                android:background="#92CE9C" />
+
             <RadioButton
+                android:id="@+id/cycle2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="false"
                 android:text=" 5분"
-                android:textSize="20dp"
-                android:checked="false"/>
+                android:textSize="20dp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="#92CE9C"/>
+                android:background="#92CE9C" />
+
             <RadioButton
+                android:id="@+id/cycle3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="false"
                 android:text=" 10분"
-                android:textSize="20dp"
-                android:checked="false"/>
+                android:textSize="20dp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="#92CE9C"/>
+                android:background="#92CE9C" />
         </RadioGroup>
     </LinearLayout>
 
@@ -90,6 +101,7 @@
             android:orientation="vertical">
 
             <RadioButton
+                android:id="@+id/count1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="false"
@@ -102,6 +114,7 @@
                 android:background="#92CE9C" />
 
             <RadioButton
+                android:id="@+id/count2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="false"
@@ -114,6 +127,7 @@
                 android:background="#92CE9C" />
 
             <RadioButton
+                android:id="@+id/count3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="false"
@@ -149,6 +163,7 @@
             android:background="#D6D6D6" />
 
         <CheckBox
+            android:id="@+id/notice1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="하루 전"
@@ -158,6 +173,7 @@
             android:layout_height="2dp"
             android:background="#92CE9C" />
         <CheckBox
+            android:id="@+id/notice2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3일 전"
@@ -167,6 +183,7 @@
             android:layout_height="2dp"
             android:background="#92CE9C" />
         <CheckBox
+            android:id="@+id/notice3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="일주일 전"
@@ -175,8 +192,22 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="#92CE9C" />
-
-
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="#FDFDFE"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <Button
+            android:id="@+id/setButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settingText"
+            />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
